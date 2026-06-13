@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<string> ans;
+
+    void backtrack(int index, string curr, string digits,
+                   vector<string>& map) {
+        if (index == digits.size()) {
+            ans.push_back(curr);
+            return;
+        }
+
+        string letters = map[digits[index] - '0'];
+
+        for (char ch : letters) {
+            backtrack(index + 1, curr + ch, digits, map);
+        }
+    }
+
+    vector<string> letterCombinations(string digits) {
+        if (digits.empty())
+            return {};
+
+        vector<string> map = {
+            "", "", "abc", "def", "ghi",
+            "jkl", "mno", "pqrs", "tuv", "wxyz"
+        };
+
+        backtrack(0, "", digits, map);
+
+        return ans;
+    }
+};
